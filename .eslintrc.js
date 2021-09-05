@@ -11,6 +11,15 @@ module.exports = {
     '@vue/prettier/@typescript-eslint',
     'prettier'
   ],
+  rules: {
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'none'
+      }
+    ]
+  },
   parserOptions: {
     parser: '@typescript-eslint/parser',
     ecmaVersion: 2020

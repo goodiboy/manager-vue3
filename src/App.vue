@@ -6,9 +6,6 @@
   import { defineComponent } from 'vue'
 
   export default defineComponent({
-    name: 'App',
-    created() {
-      const a = 1
-    }
+    name: 'App'
   })
 </script>
