@@ -1,25 +1,25 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import config from '../../config'
-import {ElMessage} from "element-plus";
+import { ElMessage } from 'element-plus'
 const instance = axios.create({
   baseURL: config.baseURL,
   timeout: 8000
 })
 
-instance.interceptors.request.use(request => {
+instance.interceptors.request.use((request) => {
   const headers = request.headers
   if (!headers.Authorization) headers.Authorization = 'Bear Jack'
   return request
 })
 
-instance.interceptors.response.use(response => {
+instance.interceptors.response.use((response) => {
   const { code, data, msg } = response.data
-  if (code === 200){
+  if (code === 200) {
     return data
-  }else if (code === 40001){
+  } else if (code === 40001) {
     ElMessage.error('错误')
     return Promise.reject('错误')
-  }else {
+  } else {
     ElMessage.error(msg)
     return Promise.reject(msg)
   }
@@ -45,4 +45,3 @@ instance.interceptors.response.use(response => {
 // }
 
 export default instance
-
