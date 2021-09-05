@@ -1,8 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import config from '../../config'
+import axios from 'axios'
+import config from '@/config'
 import { ElMessage } from 'element-plus'
 const instance = axios.create({
-  baseURL: config.baseURL,
+  baseURL: config.baseApi,
   timeout: 8000
 })
 
