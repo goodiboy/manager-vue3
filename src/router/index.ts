@@ -1,9 +1,9 @@
-import { createRouter, createMemoryHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     name: 'Home',
     path: '/',
-    component: () => import('@/components/Home'),
+    component: () => import('@/views/home/Home'),
     redirect: '/welcome',
     children: [
       {
@@ -12,14 +12,22 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '欢迎页'
         },
-        component: () => import('@/views/Welcome')
+        component: () => import('@/views/welcome/Welcome')
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta: {
+      title: '登录页'
+    },
+    component: () => import('@/views/login/Login')
   }
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(''),
+  history: createWebHashHistory(''),
   routes
 })
 
