@@ -1,10 +1,20 @@
 import { createRouter, createMemoryHistory, RouteRecordRaw } from 'vue-router'
-import Home from '@/components/Home'
 const routes: Array<RouteRecordRaw> = [
   {
     name: 'Home',
     path: '/',
-    component: Home
+    component: () => import('@/components/Home'),
+    redirect: '/welcome',
+    children: [
+      {
+        path: '/welcome',
+        name: 'Welcome',
+        meta: {
+          title: '欢迎页'
+        },
+        component: () => import('@/views/Welcome')
+      }
+    ]
   }
 ]
 
