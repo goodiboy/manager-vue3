@@ -8,18 +8,18 @@ const TOKEN_INVALID = 'Token认证失败,请重新登陆'
 const NETWORK_ERROR = '网络请求异常,请稍后重试'
 
 // 创建axios实例对象,添加全局配置
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: config.baseApi,
   timeout: 8000
 })
 
-instance.interceptors.request.use((request) => {
+axiosInstance.interceptors.request.use((request) => {
   const headers = request.headers
   if (!headers.Authorization) headers.Authorization = 'Bear goodiboy'
   return request
 })
 
-instance.interceptors.response.use((response) => {
+axiosInstance.interceptors.response.use((response) => {
   const { code, data, msg } = response.data
   if (code === 200) {
     return data
@@ -54,4 +54,4 @@ instance.interceptors.response.use((response) => {
 //   return instance(options)
 // }
 
-export default instance
+export default axiosInstance

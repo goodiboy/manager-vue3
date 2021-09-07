@@ -1,5 +1,5 @@
 import { defineComponent, reactive, ref } from 'vue'
-import { ElForm } from 'element-plus'
+import { ElForm, ElMessage } from 'element-plus'
 import './login.scss'
 export default defineComponent({
   name: 'Login',
@@ -8,6 +8,7 @@ export default defineComponent({
       userName: '',
       userPwd: ''
     })
+    // 获取构造函数的实例类型
     const userFrom = ref<InstanceType<typeof ElForm>>()
     // 校验规则
     const rules = {
@@ -19,6 +20,11 @@ export default defineComponent({
       if (!userFrom?.value) return
       userFrom.value.validate((valid) => {
         console.log(valid)
+        if (valid) {
+          console.log(1)
+        } else {
+          ElMessage.error('表单填写错误')
+        }
       })
     }
 
