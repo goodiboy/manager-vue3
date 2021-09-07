@@ -9,6 +9,7 @@ module.exports = {
     '@vue/typescript/recommended',
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',
+    'plugin:vue/essential',
     'prettier'
   ],
   rules: {
