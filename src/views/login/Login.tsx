@@ -1,9 +1,13 @@
 import { defineComponent, reactive, ref } from 'vue'
 import { ElForm, ElMessage } from 'element-plus'
 import './login.scss'
+import axiosInstance from '@/utils/http'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Login',
   setup() {
+    const router = useRouter()
+
     const user = reactive({
       userName: '',
       userPwd: ''
@@ -16,12 +20,23 @@ export default defineComponent({
       userPwd: [{ required: true, message: '请输入密码', trigger: 'blur' }]
     }
 
+    const onEnter = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        login()
+      }
+    }
+
     const login = () => {
       if (!userFrom?.value) return
-      userFrom.value.validate((valid) => {
+      userFrom.value.validate(async (valid) => {
         console.log(valid)
         if (valid) {
-          console.log(1)
+          const res = await axiosInstance.post('/api/users/login', {
+            userName: user.userName,
+            userPwd: user.userPwd
+          })
+          console.log(res)
+          router.back()
         } else {
           ElMessage.error('表单填写错误')
         }
@@ -37,7 +52,12 @@ export default defineComponent({
               <el-input prefix-icon="el-icon-user" v-model={user.userName} />
             </el-form-item>
             <el-form-item prop="userPwd">
-              <el-input prefix-icon="el-icon-view" v-model={user.userPwd} />
+              <el-input
+                prefix-icon="el-icon-view"
+                onKeyup={onEnter}
+                type="password"
+                v-model={user.userPwd}
+              />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" class="btn-login" onClick={login}>
