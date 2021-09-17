@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref } from 'vue'
+import { withKeys, defineComponent, reactive, ref } from 'vue'
 import { ElForm, ElMessage } from 'element-plus'
 import './login.scss'
 import axiosInstance from '@/utils/http'
@@ -19,13 +19,6 @@ export default defineComponent({
       userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
       userPwd: [{ required: true, message: '请输入密码', trigger: 'blur' }]
     }
-
-    const onEnter = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        login()
-      }
-    }
-
     const login = () => {
       if (!userFrom?.value) return
       userFrom.value.validate(async (valid) => {
@@ -54,14 +47,14 @@ export default defineComponent({
             <el-form-item prop="userPwd">
               <el-input
                 prefix-icon="el-icon-view"
-                onKeyup={onEnter}
+                onKeyup={withKeys(login, ['enter'])}
                 type="password"
                 v-model={user.userPwd}
               />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" class="btn-login" onClick={login}>
-                登录
+                <span>登录</span>
               </el-button>
             </el-form-item>
           </el-form>
